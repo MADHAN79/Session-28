@@ -13,7 +13,7 @@ const CartItem = ({ item }) => {
     };
 
     const handleDecrease = () => {
-        if (item.quantity > 1) {
+        if (item.quantity > 0) {
             updateItemQuantity(item.id, item.quantity - 1);
         }
     };
