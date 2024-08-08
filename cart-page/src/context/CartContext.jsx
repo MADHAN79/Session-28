@@ -13,7 +13,7 @@ export const CartProvider = ({ children }) => {
             "category": "men's clothing",
             "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
             "rating": { rate: 3.9, count: 120 },
-            "quantity": 1  // Add default quantity
+            "quantity": 0  // Add default quantity
         },
         {
           "id": 2,
@@ -26,7 +26,7 @@ export const CartProvider = ({ children }) => {
             "rate": 4.1,
             "count": 259
           },
-          "quantity": 1  // Add default quantity
+          "quantity": 0  // Add default quantity
         },
         {
           "id": 3,
@@ -39,7 +39,7 @@ export const CartProvider = ({ children }) => {
             "rate": 4.7,
             "count": 500
           },
-          "quantity": 1  // Add default quantity
+          "quantity": 0  // Add default quantity
         },
         {
           "id": 4,
@@ -52,7 +52,7 @@ export const CartProvider = ({ children }) => {
             "rate": 2.1,
             "count": 430
           },
-          "quantity": 1  // Add default quantity
+          "quantity": 0  // Add default quantity
         },
         {
           "id": 5,
@@ -65,7 +65,7 @@ export const CartProvider = ({ children }) => {
             "rate": 4.6,
             "count": 400
           },
-          "quantity": 1  // Add default quantity
+          "quantity": 0  // Add default quantity
         },
         {
           "id": 6,
@@ -78,7 +78,7 @@ export const CartProvider = ({ children }) => {
             "rate": 3.9,
             "count": 70
           },
-          "quantity": 1  // Add default quantity
+          "quantity": 0  // Add default quantity
         },
         {
           "id": 7,
@@ -91,7 +91,7 @@ export const CartProvider = ({ children }) => {
             "rate": 3,
             "count": 400
           },
-          "quantity": 1  // Add default quantity
+          "quantity": 0  // Add default quantity
         },
         {
           "id": 8,
@@ -104,7 +104,7 @@ export const CartProvider = ({ children }) => {
             "rate": 1.9,
             "count": 100
           },
-          "quantity": 1  // Add default quantity
+          "quantity": 0  // Add default quantity
         },
         {
           "id": 9,
@@ -117,7 +117,7 @@ export const CartProvider = ({ children }) => {
             "rate": 3.3,
             "count": 203
           },
-          "quantity": 1  // Add default quantity
+          "quantity": 0  // Add default quantity
         },
         {
           "id": 10,
@@ -130,7 +130,7 @@ export const CartProvider = ({ children }) => {
             "rate": 2.9,
             "count": 470
           },
-          "quantity": 1  // Add default quantity
+          "quantity": 0  // Add default quantity
         }
     ]);
 
@@ -142,11 +142,21 @@ export const CartProvider = ({ children }) => {
         );
     };
 
+    const removeItem = (id) => {
+        setCartItems(prevItems =>
+            prevItems.map(item =>
+                item.id === id ? { ...item, quantity: 0 } : item
+            )
+        );
+    };
+
     const totalQuantity = cartItems.reduce((acc, item) => acc + Number(item.quantity), 0);
     const totalAmount = cartItems.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0);
+    // Round off to 2 decimal places
+    const roundedTotalAmount = totalAmount.toFixed(2);
 
     return (
-        <CartContext.Provider value={{ cartItems, updateItemQuantity, totalQuantity, totalAmount }}>
+        <CartContext.Provider value={{ cartItems, updateItemQuantity,removeItem, totalQuantity, roundedTotalAmount }}>
             {children}
         </CartContext.Provider>
     );

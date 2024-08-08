@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
 
+import '../styles/CartItem.css'
+
 import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
 
 const CartItem = ({ item }) => {
-    const { updateItemQuantity } = useContext(CartContext);
+    const { updateItemQuantity, removeItem } = useContext(CartContext);
 
     const handleIncrease = () => {
         updateItemQuantity(item.id, item.quantity + 1);
@@ -14,6 +16,10 @@ const CartItem = ({ item }) => {
         if (item.quantity > 1) {
             updateItemQuantity(item.id, item.quantity - 1);
         }
+    };
+
+    const handleRemove = () => {
+        removeItem(item.id);
     };
 
     return (
@@ -32,7 +38,7 @@ const CartItem = ({ item }) => {
                 <p>${item.price}</p> {/* Render price */}
                 <p>Subtotal: ${item.price * item.quantity}</p> {/* Calculate subtotal */}
             </div>
-            <button className="remove-button">REMOVE</button>
+            <button className="remove-button" onClick={handleRemove}>REMOVE</button>
         </div>
     );
     
