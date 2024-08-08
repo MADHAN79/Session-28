@@ -2,7 +2,7 @@
 
 import '../styles/CartItem.css'
 
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../context/CartContext';
 
 const CartItem = ({ item }) => {
@@ -21,6 +21,32 @@ const CartItem = ({ item }) => {
     const handleRemove = () => {
         removeItem(item.id);
     };
+
+    //go to bottom button logic:  <------------
+    const [showButton, setShowButton] = useState(false);
+
+    // Show button when scrolling down
+  useEffect(() => {
+    const handleScroll = () => {
+      const bottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
+      setShowButton(!bottom);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Function to scroll to the bottom
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth'
+    });
+  };
+
+  // ------------->
 
     //roundingoff the subtotal value to two decimal to avoid error.
     const subtotal = item.price * item.quantity;
@@ -59,6 +85,16 @@ const CartItem = ({ item }) => {
                 <h2>Product Total: ${finalTotal}</h2>
             </div>
             <button className="remove-button" onClick={handleRemove}>REMOVE</button>
+
+                {showButton && (
+                    <button 
+                    className='goToBottom'
+                    title='Go to CART'
+                    onClick={scrollToBottom} 
+                    >
+                    ↓
+                    </button>
+                )}
         </div>
     );
     
