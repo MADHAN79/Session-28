@@ -1,4 +1,5 @@
-// src/components/CartItem.js
+/* eslint-disable react/prop-types */
+
 import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
 
@@ -17,24 +18,25 @@ const CartItem = ({ item }) => {
 
     return (
         <div className="cart-item">
-            <img src={item.image} alt={item.name} className="cart-item-image" />
+            <img src={item.image} alt={item.title} className="cart-item-image" />
             <div className="cart-item-details">
-                <h2>{item.name}</h2>
-                <p>Details & Core</p>
-                <p>Sustainability</p>
+                <h2>{item.title}</h2>
+                <p>{item.description}</p>
                 <div className="quantity-control">
                     <button onClick={handleDecrease}>-</button>
-                    <span>{item.quantity}</span>
+                    <span>{item.quantity}</span> {/* Render quantity */}
                     <button onClick={handleIncrease}>+</button>
                 </div>
             </div>
             <div className="cart-item-price">
-                <p>${item.price}</p>
-                <p>Subtotal: ${item.price * item.quantity}</p>
+                <p>${item.price}</p> {/* Render price */}
+                <p>Subtotal: ${item.price * item.quantity}</p> {/* Calculate subtotal */}
             </div>
             <button className="remove-button">REMOVE</button>
         </div>
     );
+    
+    
 };
 
 export default CartItem;
