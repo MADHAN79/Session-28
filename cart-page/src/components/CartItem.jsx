@@ -22,6 +22,10 @@ const CartItem = ({ item }) => {
         removeItem(item.id);
     };
 
+    //roundingoff the subtotal value to two decimal to avoid error.
+    const subtotal = item.price * item.quantity;
+    const roundsubtotal = subtotal.toFixed(2);
+
     return (
         <div className="cart-item">
             <img src={item.image} alt={item.title} className="cart-item-image" />
@@ -36,7 +40,8 @@ const CartItem = ({ item }) => {
             </div>
             <div className="cart-item-price">
                 <p>${item.price}</p> {/* Render price */}
-                <p>Subtotal: ${item.price * item.quantity}</p> {/* Calculate subtotal */}
+                
+                <p>Subtotal: $({roundsubtotal})</p> {/* Calculate subtotal */}
             </div>
             <button className="remove-button" onClick={handleRemove}>REMOVE</button>
         </div>
