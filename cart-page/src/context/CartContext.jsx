@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import { createContext, useState } from 'react';
 
 // Create the CartContext
 export const CartContext = createContext();
@@ -13,7 +13,8 @@ export const CartProvider = ({ children }) => {
             "category": "men's clothing",
             "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
             "rating": { rate: 3.9, count: 120 },
-            "quantity": 0  // Add default quantity
+            "quantity": 0,  // Add default quantity
+            "shippingFee": 10  // Added shipping fee
         },
         {
           "id": 2,
@@ -26,7 +27,8 @@ export const CartProvider = ({ children }) => {
             "rate": 4.1,
             "count": 259
           },
-          "quantity": 0  // Add default quantity
+          "quantity": 0,  // Add default quantity
+          "shippingFee": 5  // Added shipping fee  // Add default quantity
         },
         {
           "id": 3,
@@ -39,7 +41,8 @@ export const CartProvider = ({ children }) => {
             "rate": 4.7,
             "count": 500
           },
-          "quantity": 0  // Add default quantity
+          "quantity": 0,  // Add default quantity
+          "shippingFee": 10  // Added shipping fee  // Add default quantity
         },
         {
           "id": 4,
@@ -52,7 +55,8 @@ export const CartProvider = ({ children }) => {
             "rate": 2.1,
             "count": 430
           },
-          "quantity": 0  // Add default quantity
+          "quantity": 0,  // Add default quantity
+          "shippingFee": 5  // Added shipping fee  // Add default quantity
         },
         {
           "id": 5,
@@ -65,7 +69,8 @@ export const CartProvider = ({ children }) => {
             "rate": 4.6,
             "count": 400
           },
-          "quantity": 0  // Add default quantity
+          "quantity": 0,  // Add default quantity
+          "shippingFee": 0  // Added shipping fee  // Add default quantity
         },
         {
           "id": 6,
@@ -78,7 +83,8 @@ export const CartProvider = ({ children }) => {
             "rate": 3.9,
             "count": 70
           },
-          "quantity": 0  // Add default quantity
+          "quantity": 0,  // Add default quantity
+          "shippingFee": 0  // Added shipping fee  // Add default quantity
         },
         {
           "id": 7,
@@ -91,7 +97,8 @@ export const CartProvider = ({ children }) => {
             "rate": 3,
             "count": 400
           },
-          "quantity": 0  // Add default quantity
+          "quantity": 0,  // Add default quantity
+          "shippingFee": 0  // Added shipping fee  // Add default quantity
         },
         {
           "id": 8,
@@ -104,7 +111,8 @@ export const CartProvider = ({ children }) => {
             "rate": 1.9,
             "count": 100
           },
-          "quantity": 0  // Add default quantity
+          "quantity": 0,  // Add default quantity
+          "shippingFee": 3  // Added shipping fee  // Add default quantity
         },
         {
           "id": 9,
@@ -117,7 +125,8 @@ export const CartProvider = ({ children }) => {
             "rate": 3.3,
             "count": 203
           },
-          "quantity": 0  // Add default quantity
+          "quantity": 0,  // Add default quantity
+          "shippingFee": 7  // Added shipping fee  // Add default quantity
         },
         {
           "id": 10,
@@ -130,7 +139,8 @@ export const CartProvider = ({ children }) => {
             "rate": 2.9,
             "count": 470
           },
-          "quantity": 0  // Add default quantity
+          "quantity": 0,  // Add default quantity
+          "shippingFee": 20  // Added shipping fee  // Add default quantity
         }
     ]);
 
@@ -155,8 +165,19 @@ export const CartProvider = ({ children }) => {
     // Round off to 2 decimal places
     const roundedTotalAmount = totalAmount.toFixed(2);
 
+    // Calculate total shipping fee from the JSON data
+  const totalShippingFee = cartItems.reduce((acc, item) => acc + Number(item.shippingFee) * Number(item.quantity), 0);
+  
+  // Total amount including shipping
+  const totalAmountWithShipping = totalAmount + totalShippingFee;
+
+  // Round off to 2 decimal places
+  const roundedTotalShippingFee = totalShippingFee.toFixed(2);
+  const roundedTotalAmountWithShipping = totalAmountWithShipping.toFixed(2);
+
+
     return (
-        <CartContext.Provider value={{ cartItems, updateItemQuantity,removeItem, totalQuantity, roundedTotalAmount }}>
+        <CartContext.Provider value={{ cartItems, updateItemQuantity,removeItem, totalQuantity, roundedTotalAmount, roundedTotalShippingFee, roundedTotalAmountWithShipping }}>
             {children}
         </CartContext.Provider>
     );
