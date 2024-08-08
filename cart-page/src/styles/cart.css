@@ -1,0 +1,46 @@
+/* src/styles/cart.css */
+.cart {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.cart-item-image {
+    width: 100px;
+    height: auto;
+}
+
+.cart-item-details {
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-control button {
+    padding: 5px;
+}
+
+.cart-item-price {
+    text-align: right;
+}
+
+.remove-button {
+    color: red;
+    cursor: pointer;
+}
+
+.cart-summary {
+    text-align: right;
+    margin-top: 20px;
+}
